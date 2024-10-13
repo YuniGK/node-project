@@ -1,3 +1,4 @@
 # node project start!
 
-### code . - Visual Studio Code 오픈
+## 터미널 명령어
+### code . --> Visual Studio Code 오픈
