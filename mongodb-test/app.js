@@ -43,9 +43,41 @@ async function run() {
     */
 
     //특정 검색 - 20살 보다 많다
+    /*
     const findUser = await users.find({age : { $gt : 20}}).toArray();
 
     console.log("result ", findUser);
+    */
+
+    //특정항목을 빼고 검색
+    /*
+    const findUser = await users.find({name : 'yuni'})
+                    .project({_id : 0})//0 제외를 의미
+                    .toArray();
+
+    console.log("result ", findUser);
+    */
+
+    //특정항목만 검색
+    const findUser = await users.find({name : 'yuni'})
+                    .project({name : 1})//1 선택을 의미
+                    .toArray();
+
+    console.log("result ", findUser);
+
+    //업데이트
+    /*
+                                            //변경할 대상       //변경할 내용
+    const updateUser = await users.updateOne({name : 'yun'}, {$set:{age : 25}});
+
+    console.log("result ", updateUser);
+    */
+
+    //삭제
+    /*
+    const deleteUsers = await users.deleteMany({age : {$gt : 19}});
+    console.log("result ", deleteUsers);
+    */
 }
 
 run();
