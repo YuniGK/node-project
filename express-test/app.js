@@ -21,12 +21,23 @@ app.delete("/about", (req, res)=>{
 });
 */
 
+const token = null;
+
 //미들웨어
 //미들웨어에서는 반드시 next가 필요하다.
 const checkAuth = (req, res, next) => {
     console.log(`admin permission`);
 
     next();
+}
+
+const checkToken = (req, res, next) => {
+    /* token null로  getUser을 수행하지 못하고 
+    don\'t have token 메시지만 출력한다. */
+    if(token)
+        next();
+
+    res.send('don\'t have token');
 }
 
 const getUser = (req, res) => {
@@ -36,7 +47,7 @@ const getUser = (req, res) => {
 
 // checkAuth를 실행을 통해 인증절차 등을 한다.
 // users로 접속 시, getUser 실행
-app.get('/users', checkAuth, getUser);
+app.get('/users', checkAuth, checkToken, getUser);
 
 app.listen(5050, () => {
     console.log('server is on 5050');
