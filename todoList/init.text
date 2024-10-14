@@ -1,0 +1,5 @@
+### 터미널
+npm init -y
+npm install express mongoose
+npm install body-parser
+//미들웨어로 전송받은 body를 파싱해준다.
