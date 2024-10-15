@@ -3,3 +3,7 @@ npm init -y
 npm install express mongoose
 npm install body-parser
 //미들웨어로 전송받은 body를 파싱해준다.
+npm install nodemon
+//새로운 내용 추가시 자동 재실행 됨
+//대신 실행 명령어 node app.js -> nodemon app.js
+설치 후 실행 되지 않을 경우 sudo npm install -g nodemon 
