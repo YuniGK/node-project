@@ -10,7 +10,8 @@ const taskSchema = Schema({
         type : Boolean
         , required : true
     }
-});
+},{timestamps : true});
+//timestamps - 데이터 생성 시간 등이 추가된다.
 
 const Task = mongoose.model("Task", taskSchema);
 
