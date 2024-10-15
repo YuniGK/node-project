@@ -7,3 +7,6 @@ npm install nodemon
 //새로운 내용 추가시 자동 재실행 됨
 //대신 실행 명령어 node app.js -> nodemon app.js
 설치 후 실행 되지 않을 경우 sudo npm install -g nodemon 
+
+npm i mongoose-sequence
+//순차적으로 id증가 시킨다.
