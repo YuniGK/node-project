@@ -12,6 +12,7 @@ import api from "./utils/api"
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [todoValue, setTodoValue] = useState('');
 
   const getTasks = async () => {
     const response = await api.get('/tasks');
@@ -21,9 +22,25 @@ function App() {
     setTodoList(response.data.data);
   }
 
+  const addTask = async () => {
+    try {
+      const response = await api.post('/tasks', {task : todoValue, isComplete : false});
+
+      if(response.status === 200){
+        console.log('성공');
+      }else{
+        throw new Error('not be added');
+      }
+
+      setTodoValue('');
+    } catch (error) {
+      console.log('post error >>> ', error);
+    }
+  }
+
   useEffect(()=>{
     getTasks();
-  }, []);
+  }, [todoList]);
 
   return (
     <Container>
@@ -33,10 +50,12 @@ function App() {
             type="text"
             placeholder="할일을 입력하세요"
             className="input-box"
+            value={todoValue}
+            onChange={(event)=>setTodoValue(event.target.value)}
           />
         </Col>
         <Col xs={12} sm={2}>
-          <button className="button-add">추가</button>
+          <button className="button-add" onClick={addTask}>추가</button>
         </Col>
       </Row>
 
