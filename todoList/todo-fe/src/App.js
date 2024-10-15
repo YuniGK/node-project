@@ -17,6 +17,8 @@ function App() {
     const response = await api.get('/tasks');
 
     console.log('res ', response);
+
+    setTodoList(response.data.data);
   }
 
   useEffect(()=>{
@@ -38,7 +40,7 @@ function App() {
         </Col>
       </Row>
 
-      <TodoBoard />
+      <TodoBoard todoList={todoList}/>
     </Container>
   );
 }
