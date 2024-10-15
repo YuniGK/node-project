@@ -17,7 +17,7 @@ function App() {
   const getTasks = async () => {
     const response = await api.get('/tasks');
 
-    console.log('res ', response);
+    //console.log('res ', response);
 
     setTodoList(response.data.data);
   }
@@ -32,9 +32,39 @@ function App() {
         throw new Error('not be added');
       }
 
+      //getTasks();
       setTodoValue('');
     } catch (error) {
       console.log('post error >>> ', error);
+    }
+  }
+
+  const deleteTask = async (_id) => {
+    try {
+      console.log(`delete`, _id);
+  
+      const response = await api.delete(`/tasks/${_id}`);
+
+      if(response.status === 200){
+        console.log('삭제 성공');
+      }else{
+        throw new Error('not be deleted');
+      }
+
+      console.log('del res ', response);
+
+    } catch (error) {
+      console.log('delete error >>> ', error);
+    }
+  }
+  const updateTask = async (_id) => {
+    try {
+      const response = await api.put(`/tasks/${_id}`);
+
+      console.log('update res ', response);
+
+    } catch (error) {
+      console.log('update error >>> ', error);
     }
   }
 
@@ -59,7 +89,7 @@ function App() {
         </Col>
       </Row>
 
-      <TodoBoard todoList={todoList}/>
+      <TodoBoard todoList={todoList} deleteTask={deleteTask} updateTask={updateTask}/>
     </Container>
   );
 }

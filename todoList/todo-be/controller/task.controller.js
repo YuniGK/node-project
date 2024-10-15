@@ -32,9 +32,11 @@ taskController.getTask = async (req, res) => {
 
 taskController.putTask = async (req, res) => {
     try {
-        const taskId = parseInt(req.params.id);
+        //const taskId = parseInt(req.params.id);
+        const taskId = req.params.id;
+        console.log(taskId);
 
-        const taskUpdate = await Task.updateOne({ taskId }, {isComplete: req.body.isComplete}); 
+        const taskUpdate = await Task.updateOne({ _id : taskId }, {isComplete: true}); 
         //const taskUpdate = await Task.updateOne({ task: 'test' }, {isComplete: req.body.isComplete});
 
         res.status(200).json({status : 'ok', data : taskUpdate});
@@ -45,9 +47,11 @@ taskController.putTask = async (req, res) => {
 
 taskController.deleteTask = async (req, res) => {
     try {
-        const taskId = parseInt(req.params.id);
+        const taskId = req.params.id;
 
-        const taskDelete = await Task.deleteOne({ taskId });
+        console.log(taskId);
+
+        const taskDelete = await Task.deleteOne({ _id : taskId });
         //const taskDelete = await Task.deleteMany({ isComplete : true });
 
         res.status(200).json({status : 'ok', data : taskDelete});

@@ -56,3 +56,8 @@ body{
   background-color: gainsboro;
   color:white;
 }
+
+button:disabled{
+  background-color: lightblue;
+  color: #ffffff;
+}
