@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -7,7 +8,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
+import api from "./utils/api"
+
 function App() {
+  const [todoList, setTodoList] = useState([]);
+
+  const getTasks = async () => {
+    const response = await api.get('/tasks');
+
+    console.log('res ', response);
+  }
+
+  useEffect(()=>{
+    getTasks();
+  }, []);
+
   return (
     <Container>
       <Row className="add-item-row">
