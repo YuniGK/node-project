@@ -10,3 +10,6 @@ npm install nodemon
 
 npm i mongoose-sequence
 //순차적으로 id증가 시킨다.
+
+npm i cors
+//cors에러 대체를 위해 
