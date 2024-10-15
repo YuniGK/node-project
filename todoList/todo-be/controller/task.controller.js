@@ -21,7 +21,7 @@ taskController.createTask = async (req, res) => {
 taskController.getTask = async (req, res) => {
     try {
         //데이터를 불러온다.
-        const taskList = await Task.find({});
+        const taskList = await Task.find({}).select("-__v");
 
         //상태를 알려준다.
         res.status(200).json({status : 'ok', data : taskList});
