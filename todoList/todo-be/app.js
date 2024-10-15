@@ -23,6 +23,6 @@ mongoose.connect(mongoURI, {useNewUrlParser:true})
         console.log('db connect fail ', err);
     });
 
-app.listen(5000, () => {
-    console.log('server on 5000');
+app.listen(5050, () => {
+    console.log('server on 5050');
 });
