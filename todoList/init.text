@@ -13,3 +13,6 @@ npm i mongoose-sequence
 
 npm i cors
 //cors에러 대체를 위해 
+
+npm i dotenv
+.env설정 파일의 내용을 읽기 위해 필요
