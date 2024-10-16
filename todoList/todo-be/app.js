@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-require('dotenv').config();
+require('dotenv').config({path:'.env'});
 const MONGDB_URI_PROD = process.env.MONGDB_URI_PROD;
 
 const indexRouter = require('./routes/index');
@@ -18,7 +18,7 @@ app.use(cors());
 app.use('/api', indexRouter);
 
 //db 주소
-const mongoURI = MONGDB_URI_PROD;
+const mongoURI = `mongodb+srv://${MONGDB_URI_PROD}@cluster0.g5mxb.mongodb.net/todo-student`;
 
 //db 연결
                             //예전형식과 요즘형식을 읽기 위해서 사용
