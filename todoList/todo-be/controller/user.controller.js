@@ -38,7 +38,7 @@ userController.loginWithEmail = async (req, res) => {
         const {email, password} = req.body;
 
         //이메일 가지고 유저정보 가져오기
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}, "-createdAt -updatedAt -__v");
 
         if(user){
             //유저의 db pw와 프론트에서 보낸 패스워드가 같은지 비교
@@ -90,8 +90,9 @@ userController.putUser = async (req, res) => {
 userController.deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
+        console.log(userId);
 
-        const userDelete = await Task.deleteOne({ _id : userId });
+        const userDelete = await User.deleteOne({ _id : userId });
 
         res.status(200).json({status : 'ok', data : userDelete});
     } catch (error) {
