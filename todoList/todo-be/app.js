@@ -32,3 +32,4 @@ mongoose.connect(mongoURI, {useNewUrlParser:true})
 app.listen(5050, () => {
     console.log('server on 5050');
 });
+
