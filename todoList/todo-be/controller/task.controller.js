@@ -21,7 +21,7 @@ taskController.createTask = async (req, res) => {
 taskController.getTask = async (req, res) => {
     try {
         //데이터를 불러온다.
-        const taskList = await Task.find({}).select("-__v");
+        const taskList = await Task.find({});
 
         //상태를 알려준다.
         res.status(200).json({status : 'ok', data : taskList});
@@ -33,9 +33,13 @@ taskController.getTask = async (req, res) => {
 taskController.putTask = async (req, res) => {
     try {
         //const taskId = parseInt(req.params.id);
-        const taskId = req.params.id;
 
-        const taskUpdate = await Task.updateOne({ _id : taskId }, {isComplete: true}); 
+        /*
+          { new: true}
+          업데이트 적용된 문서 반환하고 싶을 때
+          https://velog.io/@yejin20/mongoose-findOneAndUpdate 
+        */
+        const taskUpdate = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true}); 
         //const taskUpdate = await Task.updateOne({ task: 'test' }, {isComplete: req.body.isComplete});
 
         res.status(200).json({status : 'ok', data : taskUpdate});
@@ -46,9 +50,7 @@ taskController.putTask = async (req, res) => {
 
 taskController.deleteTask = async (req, res) => {
     try {
-        const taskId = req.params.id;
-
-        const taskDelete = await Task.deleteOne({ _id : taskId });
+        const taskDelete = await Task.findByIdAndDelete(req.params.id);
         //const taskDelete = await Task.deleteMany({ isComplete : true });
 
         res.status(200).json({status : 'ok', data : taskDelete});
