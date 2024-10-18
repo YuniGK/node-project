@@ -11,6 +11,8 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [user, setUser] = useState(null);
+
   const [error, setError] = useState('');
 
   const handleLogin = async (event) => {
@@ -21,6 +23,15 @@ const LoginPage = () => {
 
       if(response.status === 200){
         console.log('성공');
+
+        setUser(response.data.user);
+        //세션에 토큰 저장
+        sessionStorage.setItem("token", response.data.token);
+
+        //토큰 보내기
+        api.defaults.headers["authorization"] = "Bearer "+response.data.token;
+
+        setError("");
 
         navigate('/');
       }else{
