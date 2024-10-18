@@ -12,8 +12,6 @@ const TodoPage = () => {
   const getTasks = async () => {
     const response = await api.get('/tasks');
 
-    //console.log('res ', response);
-
     setTodoList(response.data.data);
   }
 
@@ -23,11 +21,11 @@ const TodoPage = () => {
 
       if(response.status === 200){
         console.log('성공');
+        getTasks();
       }else{
         throw new Error('not be added');
       }
 
-      //getTasks();
       setTodoValue('');
     } catch (error) {
       console.log('post error >>> ', error);
@@ -42,6 +40,7 @@ const TodoPage = () => {
 
       if(response.status === 200){
         console.log('삭제 성공');
+        getTasks();
       }else{
         throw new Error('not be deleted');
       }
@@ -52,23 +51,21 @@ const TodoPage = () => {
       console.log('delete error >>> ', error);
     }
   }
-  const updateTask = async (_id) => {
-    console.log(`updateTask id ${_id.id} -  isComplete ${_id.isComplete}`);
-    
+  const updateTask = async (_id) => {    
     try {
       const response = await api.put(`/tasks/${_id.id}`, {isComplete : _id.isComplete});
 
       console.log('update res ', response);
+      getTasks();
 
     } catch (error) {
       console.log('update error >>> ', error);
     }
-    
   }
 
   useEffect(()=>{
     getTasks();
-  }, [todoList]);
+  }, []);
 
   return (
     <Container>
