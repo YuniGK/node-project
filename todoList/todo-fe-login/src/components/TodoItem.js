@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 
-const TodoItem = ({ item, deleteItem, toggleComplete }) => {
+const TodoItem = ({ item, deleteItem, updateTask }) => {
   return (
     <Row>
       <Col xs={12}>
@@ -15,12 +15,12 @@ const TodoItem = ({ item, deleteItem, toggleComplete }) => {
             >
               삭제
             </button>
-            <button
-              className="button-delete"
-              onClick={() => toggleComplete(item._id)}
-            >
-              {item.isComplete ? `안끝남` : `끝남`}
+
+            <button className="button-delete" disabled={item.isComplete} 
+              onClick={()=> updateTask({id : item._id, isComplete : !item.isComplete})}>
+              {item.isComplete ? "완료" : "미완"}
             </button>
+
           </div>
         </div>
       </Col>

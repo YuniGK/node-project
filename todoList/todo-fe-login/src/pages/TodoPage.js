@@ -7,55 +7,69 @@ import Container from "react-bootstrap/Container";
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState([]);
-  const [todoValue, setTodoValue] = useState("");
+  const [todoValue, setTodoValue] = useState('');
 
   const getTasks = async () => {
-    const response = await api.get("/tasks");
+    const response = await api.get('/tasks');
+
+    //console.log('res ', response);
+
     setTodoList(response.data.data);
-  };
-  useEffect(() => {
+  }
+
+  const addTask = async () => {
+    try {
+      const response = await api.post('/tasks', {task : todoValue, isComplete : false});
+
+      if(response.status === 200){
+        console.log('성공');
+      }else{
+        throw new Error('not be added');
+      }
+
+      //getTasks();
+      setTodoValue('');
+    } catch (error) {
+      console.log('post error >>> ', error);
+    }
+  }
+
+  const deleteTask = async (_id) => {
+    try {
+      console.log(`delete`, _id);
+  
+      const response = await api.delete(`/tasks/${_id}`);
+
+      if(response.status === 200){
+        console.log('삭제 성공');
+      }else{
+        throw new Error('not be deleted');
+      }
+
+      console.log('del res ', response);
+
+    } catch (error) {
+      console.log('delete error >>> ', error);
+    }
+  }
+  const updateTask = async (_id) => {
+    console.log(`updateTask id ${_id.id} -  isComplete ${_id.isComplete}`);
+    
+    try {
+      const response = await api.put(`/tasks/${_id.id}`, {isComplete : _id.isComplete});
+
+      console.log('update res ', response);
+
+    } catch (error) {
+      console.log('update error >>> ', error);
+    }
+    
+  }
+
+  useEffect(()=>{
     getTasks();
-  }, []);
-  const addTodo = async () => {
-    try {
-      const response = await api.post("/tasks", {
-        task: todoValue,
-        isComplete: false,
-      });
-      if (response.status === 200) {
-        getTasks();
-      }
-      setTodoValue("");
-    } catch (error) {
-      console.log("error:", error);
-    }
-  };
+  }, [todoList]);
 
-  const deleteItem = async (id) => {
-    try {
-      console.log(id);
-      const response = await api.delete(`/tasks/${id}`);
-      if (response.status === 200) {
-        getTasks();
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const toggleComplete = async (id) => {
-    try {
-      const task = todoList.find((item) => item._id === id);
-      const response = await api.put(`/tasks/${id}`, {
-        isComplete: !task.isComplete,
-      });
-      if (response.status === 200) {
-        getTasks();
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
   return (
     <Container>
       <Row className="add-item-row">
@@ -69,7 +83,7 @@ const TodoPage = () => {
           />
         </Col>
         <Col xs={12} sm={2}>
-          <button onClick={addTodo} className="button-add">
+          <button onClick={addTask} className="button-add">
             추가
           </button>
         </Col>
@@ -77,8 +91,8 @@ const TodoPage = () => {
 
       <TodoBoard
         todoList={todoList}
-        deleteItem={deleteItem}
-        toggleComplete={toggleComplete}
+        deleteItem={deleteTask}
+        updateTask={updateTask}
       />
     </Container>
   );
