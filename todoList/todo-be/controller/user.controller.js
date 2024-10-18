@@ -27,7 +27,7 @@ userController.createUser = async (req, res) => {
 
         res.status(200).json({status : 'ok', data : newUser});
     } catch (error) {
-        res.status(400).json({status : 'fail', error : err});
+        res.status(400).json({status : 'fail', message : error.message});
     }
 };
 
@@ -55,7 +55,7 @@ userController.loginWithEmail = async (req, res) => {
             
         }
     } catch (error) {
-        res.status(400).json({status : 'fail', error : err});
+        res.status(400).json({status : 'fail', message : error.message});
     }
 };
 
@@ -65,7 +65,7 @@ userController.getUser = async (req, res) => {
 
         res.status(200).json({status : 'ok', data : userList});
     } catch (error) {
-        res.status(400).json({status : 'fail', error : err});
+        res.status(400).json({status : 'fail', message : error.message});
     }
 };
 
@@ -83,7 +83,7 @@ userController.putUser = async (req, res) => {
 
         res.status(200).json({status : 'ok', data : userUpdate});
     } catch (error) {
-        res.status(400).json({status : 'fail', error : err});
+        res.status(400).json({status : 'fail', message : error.message});
     }
 };
 
@@ -96,7 +96,7 @@ userController.deleteUser = async (req, res) => {
 
         res.status(200).json({status : 'ok', data : userDelete});
     } catch (error) {
-        res.status(400).json({status : 'fail', error : err});
+        res.status(400).json({status : 'fail', message : error.message});
     }
 };
 
