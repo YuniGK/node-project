@@ -1,22 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import api from "../utils/api";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [error, setError] = useState('');
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await api.post('/user/login', {email, password});
+
+      if(response.status === 200){
+        console.log('성공');
+
+        navigate('/');
+      }else{
+        throw new Error(response.data.error);
+      }
+    } catch (error) {
+      setError(error.message)
+    }
+  };
+
   return (
     <div className="display-center">
-      <Form className="login-box">
+      {error && <div class="alert alert-danger" role="alert">!!! {error} !!!</div>}
+      <Form className="login-box" onSubmit={handleLogin}>
         <h1>로그인</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control type="email" placeholder="Enter email" onChange={(event)=> setEmail(event.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control type="password" placeholder="Password" onChange={(event)=> setPassword(event.target.value)} />
         </Form.Group>
         <div className="button-box">
           <Button type="submit" className="button-primary">
