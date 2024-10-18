@@ -61,7 +61,7 @@ userController.loginWithEmail = async (req, res) => {
 
 userController.getUser = async (req, res) => {
     try {
-        const userList = await User.find({}).select("-__v");
+        const userList = await User.find({});
 
         res.status(200).json({status : 'ok', data : userList});
     } catch (error) {

@@ -58,14 +58,17 @@ function App() {
     }
   }
   const updateTask = async (_id) => {
+    console.log(`updateTask id ${_id.id} -  isComplete ${_id.isComplete}`);
+    
     try {
-      const response = await api.put(`/tasks/${_id}`);
+      const response = await api.put(`/tasks/${_id.id}`, {isComplete : _id.isComplete});
 
       console.log('update res ', response);
 
     } catch (error) {
       console.log('update error >>> ', error);
     }
+    
   }
 
   useEffect(()=>{
