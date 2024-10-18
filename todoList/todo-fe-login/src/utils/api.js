@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  //baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
-  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
+  baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
+  //baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json", 
+    authorization: "Bearer " + localStorage.getItem("token"),
   },
 });
 /**
@@ -12,7 +13,7 @@ const api = axios.create({
  */
 api.interceptors.request.use(
   (request) => {
-    //console.log("Starting Request", request);
+    console.log("Starting Request", request);
     return request;
   },
   function (error) {
@@ -22,7 +23,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    //console.log("Response:", response);
+    console.log("Response:", response);
     return response;
   },
   function (error) {
