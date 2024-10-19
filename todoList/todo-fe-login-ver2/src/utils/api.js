@@ -9,8 +9,8 @@ SessionStorage는 데이터의 지속성과 액세스 범위에 특수한 제한
 */
 
 const api = axios.create({
-  //baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
-  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
+  baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
+  //baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
   headers: {
     "Content-Type": "application/json",
     authorization: "Bearer " + sessionStorage.getItem('token'),
