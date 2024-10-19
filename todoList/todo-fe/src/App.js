@@ -28,11 +28,12 @@ function App() {
 
       if(response.status === 200){
         console.log('성공');
+        
       }else{
         throw new Error('not be added');
       }
 
-      //getTasks();
+      getTasks();
       setTodoValue('');
     } catch (error) {
       console.log('post error >>> ', error);
@@ -51,6 +52,7 @@ function App() {
         throw new Error('not be deleted');
       }
 
+      getTasks();
       console.log('del res ', response);
 
     } catch (error) {
@@ -64,6 +66,7 @@ function App() {
       const response = await api.put(`/tasks/${_id.id}`, {isComplete : _id.isComplete});
 
       console.log('update res ', response);
+      getTasks();
 
     } catch (error) {
       console.log('update error >>> ', error);
@@ -73,7 +76,7 @@ function App() {
 
   useEffect(()=>{
     getTasks();
-  }, [todoList]);
+  }, []);
 
   return (
     <Container>
