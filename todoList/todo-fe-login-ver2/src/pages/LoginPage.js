@@ -5,13 +5,11 @@ import api from "../utils/api";
 
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({setUser}) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const [user, setUser] = useState(null);
 
   const [error, setError] = useState('');
 

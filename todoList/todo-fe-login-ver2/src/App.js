@@ -16,15 +16,16 @@ function App() {
       //토큰값 읽어오기
       const storedToken = sessionStorage.getItem('token');
 
-      //토큰이 있는지 확인하여 이미 토큰이 있을 경우 토큰을 넣어준다.
+      //토큰이 있는지 확인
       if(storedToken){
-        
-      }
+        //토큰을 통해 유저정보를 가져온다.
+        const response = api.get("/user/me");
 
-      //토큰을 통해 유저정보를 가져온다.
-      const response = api.get("/user/me");
-    } catch (error) {
+        setUser(response.data.user);
+      }
       
+    } catch (error) {
+      setUser(null);
     }
   }
 
@@ -49,7 +50,7 @@ function App() {
 
       <Route path="/register" element={<RegisterPage />} />
 
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage setUser={setUser} />} />
     </Routes>
   );
 }
