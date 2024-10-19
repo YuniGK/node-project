@@ -60,6 +60,20 @@ userController.loginWithEmail = async (req, res) => {
 };
 
 userController.getUser = async (req, res) => {
+  try {
+    console.log('payload ',payload);
+
+    const user = await User.findById(payload._id);
+    
+    console.log('user ', user);
+
+    res.status(200).json({status:"ok", user : user});
+  } catch (error) {
+    res.status(400).json({status:"fail", message : error.message});
+  }  
+};
+
+userController.getUserList = async (req, res) => {
     try {
         const userList = await User.find({});
 
