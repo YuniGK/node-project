@@ -18,7 +18,7 @@ function App() {
 
       //토큰이 있는지 확인하여 이미 토큰이 있을 경우 토큰을 넣어준다.
       if(storedToken){
-        api.defaults.headers["authorization"] = "Bearer "+storedToken;
+        
       }
 
       //토큰을 통해 유저정보를 가져온다.

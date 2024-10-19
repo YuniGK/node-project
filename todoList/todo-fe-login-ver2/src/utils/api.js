@@ -4,8 +4,8 @@ const api = axios.create({
   //baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
   baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
   headers: {
-    "Content-Type": "application/json", 
-    authorization: "Bearer " + localStorage.getItem("token"),
+    "Content-Type": "application/json",
+    authorization: "Bearer " + sessionStorage.getItem('token'),
   },
 });
 /**
