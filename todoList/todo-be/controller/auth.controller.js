@@ -24,11 +24,14 @@ authController.authenticate = (req, res, next) => {
             if(error){
                 throw new Error("invalid token");
             }
-        });
 
-        //해당 함수의 기능 범위를 넘어서서, next를 이용해 다음 내용을 정의한다.
-        //토큰 id를 통해 유저정보를 가져온다.
-        next();
+            //next 호출 전, 보내야할 정보를 정한다.
+            req.userId = payload._id;
+
+            //해당 함수의 기능 범위를 넘어서서, next를 이용해 다음 내용을 정의한다.
+            //토큰 id를 통해 유저정보를 가져온다.
+            next();    
+        });
 
     } catch (error) {
         res.status(400).json({status:"fail", message : error.message});
