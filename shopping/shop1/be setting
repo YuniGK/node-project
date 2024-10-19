@@ -6,3 +6,4 @@ npm init -y
 npm i express mongoose body-parser nodemon cors dotenv bcryptjs jsonwebtoken
 
 npm start
+nodemon app
