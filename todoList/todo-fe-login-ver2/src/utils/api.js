@@ -15,7 +15,6 @@ const api = axios.create({
     "Content-Type": "application/json",
     authorization: "Bearer " + sessionStorage.getItem('token'),
     //authorization: "Bearer " + localStorage.getItem("token"),
-
   },
 });
 /**

@@ -4,7 +4,6 @@ body{
 }
 
 
-
 .todo-item{
   border: 1px solid lightblue;
   background-color: white;
@@ -15,10 +14,12 @@ body{
 .todo-content{
   padding:1em
 }
+.add-item{margin-bottom: 30px;}
 .add-item-row{
-  margin-top:50px !important;
-  margin-bottom: 30px;
+  margin: 50px 0 30px !important;
+  justify-content: right;
 }
+
 .input-box{
   padding: 10px;
   width:100%;
