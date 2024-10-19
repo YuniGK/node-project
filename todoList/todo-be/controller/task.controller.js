@@ -1,12 +1,16 @@
 const Task = require("../model/Task");
+const User = require("../model/User");
 
 const taskController = {};
 
 taskController.createTask = async (req, res) => {
     try {
+        const {userId} = req;//req.userId
+
         //req에 담겨져있는 데이터를 변수에 담는다.
         const {task, isComplete} = req.body;
-        const newTask = new Task({task, isComplete});
+
+        const newTask = new Task({task, isComplete, author: userId});
 
         //데이터를 저장한다.
         await newTask.save();
@@ -21,7 +25,11 @@ taskController.createTask = async (req, res) => {
 taskController.getTask = async (req, res) => {
     try {
         //데이터를 불러온다.
-        const taskList = await Task.find({});
+        const taskList = await Task.find({})
+            .populate("author");
+            /* populate - ObjectId를 실제 객체로 치환하는 작업을 대신해준다. 
+                join과 유사한 개념이다. 
+            */
 
         //상태를 알려준다.
         res.status(200).json({status : 'ok', data : taskList});

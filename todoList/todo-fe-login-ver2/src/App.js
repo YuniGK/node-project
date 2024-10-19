@@ -45,7 +45,7 @@ function App() {
       <Route path="/" element={
         <PrivateRoute user={user}>
           {/* todopage는 PrivateRoute의 children이다.*/}
-          <TodoPage  />
+          <TodoPage />
         </PrivateRoute>} />
 
       <Route path="/register" element={<RegisterPage />} />
