@@ -60,6 +60,23 @@ userController.loginWithEmail = async (req, res) => {
 };
 
 userController.getUser = async (req, res) => {
+  try {
+    const {userId} = req;//req.userId
+
+    const user = await User.findById(userId);
+    
+    if(!user){
+        throw new Error('유저정보가 없습니다.');
+    }
+
+    //res.status(200).json({status:"ok", user : user});
+    res.status(200).json({status:"ok", user});
+  } catch (error) {
+    res.status(400).json({status:"fail", message : error.message});
+  }  
+};
+
+userController.getUserList = async (req, res) => {
     try {
         const userList = await User.find({});
 

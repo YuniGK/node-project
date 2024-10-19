@@ -4,6 +4,8 @@ import api from "../utils/api";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import LogoutButton from "../components/LogoutButton";
+import { useNavigate } from "react-router-dom";
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState([]);
@@ -68,8 +70,9 @@ const TodoPage = () => {
   }, []);
 
   return (
-    <Container>
-      <Row className="add-item-row">
+    <Container>    
+      <Row className="add-item">
+        <LogoutButton />
         <Col xs={12} sm={10}>
           <input
             type="text"

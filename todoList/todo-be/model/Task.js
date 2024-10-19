@@ -10,6 +10,13 @@ const taskSchema = mongoose.Schema({
         type : Boolean
         , required : true
     }
+    , //작성자
+    author : {
+        type : Schema.Types.ObjectId
+        , required : true
+        , //User name를 참조한다.
+        ref : 'User'
+    }
 },{timestamps : true});
 //timestamps - 데이터 생성 시간 등이 추가된다.
 
