@@ -1,1 +1,2 @@
-/api/* http://localhost:5050/api/:splat 200
+* /index.html 200
+/api/* https://shop.fly.dev/api/:splat 200
