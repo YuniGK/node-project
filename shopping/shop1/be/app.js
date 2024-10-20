@@ -8,7 +8,7 @@ const app = express();
 require('dotenv').config({path:'.env'});
 
 app.use(cors());
-
+ 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());//req.body각 객체로 인식
 
@@ -24,5 +24,5 @@ mongoose.connect(mongoURI, {useNewUrlParser:true})
 
 //PORT셋팅  
 app.listen(process.env.PORT || 5000, () =>{
-    console.log("server on");
+    console.log("server on 5000");
 });

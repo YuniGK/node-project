@@ -1,4 +1,4 @@
-be setting 
+---> be setting 
 
 //초기화
 npm init -y
@@ -6,4 +6,14 @@ npm init -y
 npm i express mongoose body-parser nodemon cors dotenv bcryptjs jsonwebtoken
 
 npm start
+
+//시작
 nodemon app
+
+---> fe setting
+
+//초기화
+npm install
+
+//시작
+npm start
