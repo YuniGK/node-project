@@ -18,15 +18,17 @@ userController.createUser = async (req, res) => {
         }
 
         //---> 비밀번호 암호화
-        password = await bcrypt.hashSync(password, salt); 
-
+        const pwd = await bcrypt.hashSync(password, salt); 
                                                         //level - 값이 있을 경우 해당 값으로 저장, 없을 경우 customer로 저장
-        const newUser = new User({email, password, name, lever : level ? level : 'customer'});
+        const newUser = new User({email, password : pwd, name, lever : level ? level : 'customer'});
 
+        console.log("save before !")
         //저장
-        await newUser.svae();
+        const response = await newUser.save();
+        console.log("save after !")
 
         return res.status(200).json({status : "create success"});
+        console.log("res ", res)
 
     } catch (error) {
         res.status(400).json({status : "create fail", message : error.message});
