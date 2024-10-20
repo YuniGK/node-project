@@ -3,26 +3,34 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const app = express();
-
 require('dotenv').config({path:'.env'});
+const MONGDB_URI_PROD = process.env.MONGDB_URI_PROD;
+
+const indexRouter = require('./routes/index');
+
+const app = express();
+//받은 데이터를 bodyParser이용해 변환한다.
+app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());//req.body각 객체로 인식
-
-//const indexRouter = require('./routes/index');
 //api주소를 사용할 때, indexRouter를 호출한다.
-//app.use('/api', indexRouter);
+app.use('/api', indexRouter);
 
-//db셋팅
-const mongoURI = process.env.LOCAL_DB_ADDRESS;
+//db 주소
+const mongoURI = `mongodb+srv://${MONGDB_URI_PROD}@cluster0.g5mxb.mongodb.net/shopping-mall`;
+
+//db 연결
+                            //예전형식과 요즘형식을 읽기 위해서 사용
 mongoose.connect(mongoURI, {useNewUrlParser:true})
-        .then(()=> console.log('mongoose connected'))
-        .catch((error)=> console.log('DB connection fail ', error));
+    .then(() => {
+        console.log('db connect');
+    }).catch((err) => {
+        console.log('db connect fail ', err);
+    });
 
 //PORT셋팅  
 app.listen(process.env.PORT || 5000, () =>{
-    console.log("server on");
+    console.log('server on 5050');
 });
+
