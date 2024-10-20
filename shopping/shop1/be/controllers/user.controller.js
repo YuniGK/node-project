@@ -1,7 +1,7 @@
 const userController = {};
 
-userController.createUser = async () => {
-    
+userController.createUser = async (req, res) => {
+
 }
 
 
