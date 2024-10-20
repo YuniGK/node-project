@@ -22,13 +22,10 @@ userController.createUser = async (req, res) => {
                                                         //level - 값이 있을 경우 해당 값으로 저장, 없을 경우 customer로 저장
         const newUser = new User({email, password : pwd, name, lever : level ? level : 'customer'});
 
-        console.log("save before !")
         //저장
         const response = await newUser.save();
-        console.log("save after !")
 
         return res.status(200).json({status : "create success"});
-        console.log("res ", res)
 
     } catch (error) {
         res.status(400).json({status : "create fail", message : error.message});

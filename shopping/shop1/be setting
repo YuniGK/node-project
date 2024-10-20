@@ -15,5 +15,8 @@ nodemon app
 //초기화
 npm install
 
+//cors
+npm i http-proxy-middleware
+
 //시작
 npm start
