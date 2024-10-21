@@ -6,7 +6,23 @@ import { initialCart } from "../cart/cartSlice";
 
 export const loginWithEmail = createAsyncThunk(
   "user/loginWithEmail",
-  async ({ email, password }, { rejectWithValue }) => {}
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      /* -- 작업내용 -- */
+      const response = await api.post("/auth/login", {email, password});
+      
+      //성공      
+      if(response.status == 200){
+        //---> 메인페이지 이동(로그인 페이지에서 처리)
+        return response.data;
+      }
+    } catch (error) {
+      //---> 실패시 생긴 에러값을 redqucer에 저장
+      console.log('1 ',error.message);
+      return rejectWithValue(error.message)
+
+    }
+  }
 );
 
 export const loginWithGoogle = createAsyncThunk(
@@ -41,6 +57,13 @@ export const registerUser = createAsyncThunk(
     Redux는 본래 동기(Synchronous)적으로 작업이 처리 된다.
     action ➡️ dispatch(action) ➡️ reducer ➡️ store
     데이터의 흐름이 항상 단방향이기 때문에 쉽게 제어할 수 있다
+
+    리덕스
+    https://velopert.com/3528
+    https://velopert.com/3533
+    https://ko.redux.js.org/introduction/getting-started/
+
+    Provider 는 react-redux 라이브러리에 내장되어있는, 리액트 앱에 store 를 손쉽게 연동 할 수 있도록 도와주는 컴포넌트
     */
     try {
       const response = await api.post("/user", {email, name, password});
@@ -88,7 +111,8 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {//외부의 함수를 통해서 아이템을 호출
     /* -- 리덕스에서 나온 결과물을 저장 -- */
-    builder.addCase(registerUser.pending, (state) => {
+    builder 
+           .addCase(registerUser.pending, (state) => {
             //userSlice > initialState값을 변경한다.
             state.loading = true;
             })//대기
@@ -100,6 +124,21 @@ const userSlice = createSlice({
               state.loading = false;
               state.registrationError = action.payload;//에러 셋팅
             })//실패
+
+            .addCase(loginWithEmail.pending, (state) => {
+              state.loading = true;
+            })
+            .addCase(loginWithEmail.fulfilled, (state, action) => {
+              state.loading = false;
+              state.loginError = null;
+
+              state.user = action.payload.user;//유저 값을 저장한다.
+            })
+            .addCase(loginWithEmail.rejected, (state, action) => {
+              state.loading = false;
+              console.log('2 ',action.payload);
+              state.loginError = action.payload;
+            })
   },
 });
 export const { clearErrors } = userSlice.actions;
